@@ -1,0 +1,22 @@
+import tkinter as tk
+
+class HazardLight:
+    def __init__(self, master):
+        self.master = master
+        self.master.title("Emergency Lights")
+        self.canvas = tk.Canvas(master, width=200, height=200)
+        self.canvas.pack()
+        self.light = self.canvas.create_oval(50, 50, 150, 150, fill='red')
+        self.is_red = True
+        self.flash()
+
+    def flash(self):
+        new_color = 'blue' if self.is_red else 'red'
+        self.canvas.itemconfig(self.light, fill=new_color)
+        self.is_red = not self.is_red
+        self.master.after(100, self.flash)  # Flash every 100 milliseconds
+
+if __name__ == '__main__':
+    root = tk.Tk()
+    hazard_light_app = HazardLight(root)
+    root.mainloop()
